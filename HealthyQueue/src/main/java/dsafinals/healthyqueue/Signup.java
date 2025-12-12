@@ -52,7 +52,6 @@ public class Signup extends javax.swing.JFrame {
         LogInButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 500));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
@@ -72,12 +71,13 @@ public class Signup extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(120, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(117, 117, 117))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(149, 149, 149)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(117, 117, 117))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(139, 139, 139))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,13 +148,13 @@ public class Signup extends javax.swing.JFrame {
                                 .addComponent(ConfirmAccount)
                                 .addGap(18, 18, 18)
                                 .addComponent(LogInButton)))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 2, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jLabel1)
@@ -231,10 +231,14 @@ public class Signup extends javax.swing.JFrame {
         return;
     }
 
-    // Check for duplicate email
+    // Check for duplicate email or full name
     for (Account acc : accounts) {
         if (acc.getEmail().equalsIgnoreCase(email)) {
             JOptionPane.showMessageDialog(this, "Email already registered.");
+            return;
+        }
+        if (acc.getFullName().equalsIgnoreCase(fullName)) {
+            JOptionPane.showMessageDialog(this, "Full Name already registered.");
             return;
         }
     }
@@ -243,7 +247,7 @@ public class Signup extends javax.swing.JFrame {
     accounts.add(new Account(fullName, email, password));
     JOptionPane.showMessageDialog(this, "Account created successfully!");
 
-    // Optionally, open login window
+    // Open login window
     Login loginFrame = new Login();
     loginFrame.pack();
     loginFrame.setLocationRelativeTo(null);
