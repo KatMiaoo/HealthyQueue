@@ -59,9 +59,9 @@ public class Login extends javax.swing.JFrame {
                         .addGap(118, 118, 118)
                         .addComponent(jLabel6))
                     .addGroup(RightLayout.createSequentialGroup()
-                        .addGap(149, 149, 149)
+                        .addGap(140, 140, 140)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,7 +70,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addContainerGap(215, Short.MAX_VALUE))
+                .addContainerGap(217, Short.MAX_VALUE))
         );
 
         jPanel1.add(Right);
@@ -219,11 +219,26 @@ public class Login extends javax.swing.JFrame {
 
     private void LogInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInButtonActionPerformed
         
-        dashboard dashboardFrame = new dashboard();
+        String email = EmailField.getText();
+    String password = new String(PasswordField.getPassword());
+
+    boolean found = false;
+    for (Signup.Account acc : Signup.accounts) {
+        if (acc.getEmail().equals(email) && acc.getPassword().equals(password)) {
+            found = true;
+            break;
+        }
+    }
+        
+    if (found) {
+        dashboard dashboardFrame = new dashboard(email); // pass the email
         dashboardFrame.pack();
         dashboardFrame.setLocationRelativeTo(null);
         dashboardFrame.setVisible(true);
         this.dispose();
+    } else {
+        JOptionPane.showMessageDialog(this, "Invalid email or password!");
+    }
     }//GEN-LAST:event_LogInButtonActionPerformed
     
     public static void main(String args[]) {
