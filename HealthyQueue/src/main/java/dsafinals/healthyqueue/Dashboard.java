@@ -41,12 +41,16 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard(String email) {
         
     initComponents();
-    setupSpinners();   
+    setupSpinners();
+    setupFoodDescriptions();
+    
     }
     
     private void clearOrdersSilent() {
+        
     orders.clear();
     grandTotal = 0;
+    
 }
  
    private void addOrder(String itemName, int qty, int price) {
@@ -76,6 +80,7 @@ public class Dashboard extends javax.swing.JFrame {
     Spinner4.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
     Spinner5.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
     Spinner6.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+    
 }
     
     

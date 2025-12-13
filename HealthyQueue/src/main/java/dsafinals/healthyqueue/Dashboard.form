@@ -78,12 +78,10 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="ExitBtn" pref="102" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="ReceiptBtn" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="ViewBtn" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="OrderBtn" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="PurchaseBtn" pref="102" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="ReceiptBtn" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="ViewBtn" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="OrderBtn" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="PurchaseBtn" pref="102" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
                           </Group>
