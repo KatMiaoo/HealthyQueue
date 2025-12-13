@@ -1,174 +1,84 @@
 
 package dsafinals.healthyqueue;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-public class dashboard extends javax.swing.JFrame {
-    
-    private String userEmail; // store the logged-in user's email
-    private static final Logger logger = Logger.getLogger(dashboard.class.getName());
-    private final List<String> orders = new ArrayList<>();
-    
-    // GUI components
-    private JPanel Main, DashBtnPanel, MenuPanel;
-    private JButton OrderBtn, ViewBtn, ReceiptBtn, ExitBtn;
-    private JLabel Icon, JMenu;
-    private JPanel FoodPanel1, FoodPanel2, FoodPanel3, FoodPanel4, FoodPanel5, FoodPanel6;
-    private JLabel OmeletteM1, OmeletteM2, OmeletteM3, OmeletteM4;
-    private JLabel Price1, Price2, Price3, Price4, Price5, Price6;
-    private JLabel RamenM2, RamenM3;
-    private JSpinner Spinner1, Spinner2, Spinner3, Spinner4, Spinner5, Spinner6;
-    private JLabel jLabel1, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6;
+import java.util.HashMap;
+import java.util.Map;
 
+public class Dashboard extends javax.swing.JFrame {
+    // store the logged-in user's email
+    // store the logged-in user's email
+    private static final Logger logger = Logger.getLogger(Dashboard.class.getName());
+    private final List<String> orders = new ArrayList<>();
+    private final List<String> pastPurchases = new ArrayList<>();
+    private int grandTotal = 0;
+    private final Map<String, String> foodDescriptions = new HashMap<>();
+    
+    
+    private void setupFoodDescriptions() {
+    foodDescriptions.put("Omelette Rice", "Calories: 350 kcal | Protein-rich meal");
+    foodDescriptions.put("Ramen", "Calories: 450 kcal | High energy noodles");
+    foodDescriptions.put("Stir Fry", "Calories: 300 kcal | Balanced vegetables & protein");
+    foodDescriptions.put("Oatmeal", "Calories: 180 kcal | High fiber, healthy choice");
+    foodDescriptions.put("Salmon", "Calories: 250 kcal | Omega-3 rich");
+    foodDescriptions.put("Ginataan", "Calories: 320 kcal | Coconut-based dish");
+}
+
+    // GUI components
    // Default constructor
-    public dashboard() {
+    public Dashboard() {
+        
         initComponents();
+        setupSpinners(); 
+        setupFoodDescriptions();
+    
     }
 
     // Constructor with user email
-    public dashboard(String email) {
-        this.userEmail = email;
-        initComponents();
-        welcomeUser();
-    }
-
-   private void welcomeUser() {
-        JOptionPane.showMessageDialog(this, "Welcome " + userEmail + "!");
+    public Dashboard(String email) {
+        
+    initComponents();
+    setupSpinners();   
     }
     
-   private void addOrder(String itemName, int qty, int price) {
-        if (qty <= 0) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid quantity!");
-            return;
-        }
-
-        int total = qty * price;
-        String text = itemName + " x" + qty + " = ₱" + total;
-        orders.add(text);
-        JOptionPane.showMessageDialog(this, "Added to order:\n" + text);
-    }
-
-    private void addOrderFromSpinner(String itemName, int qty, int price) {
-        if (qty > 0) {
-            addOrder(itemName, qty, price);
-        }
-    }
-
-    private void viewOrders() {
-        if (orders.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No orders yet!");
-            return;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        for (String o : orders) {
-            sb.append(o).append("\n");
-        }
-
-        JOptionPane.showMessageDialog(this, "Your Orders:\n\n" + sb);
-    }
-
-    private void clearOrders() {
-        orders.clear();
-        JOptionPane.showMessageDialog(this, "All orders cancelled!");
-    }
-
-    @SuppressWarnings("unchecked")
-    private void initComponents() {
-        // Initialize panels
-        Main = new JPanel();
-        DashBtnPanel = new JPanel();
-        MenuPanel = new JPanel();
-
-        // Initialize buttons
-        OrderBtn = new JButton("Order");
-        ViewBtn = new JButton("View Order");
-        ReceiptBtn = new JButton("Receipt");
-        ExitBtn = new JButton("Exit");{
+    private void clearOrdersSilent() {
     orders.clear();
-    javax.swing.JOptionPane.showMessageDialog(this, "All orders cancelled!");
-    
-    // Initialize labels
-        Icon = new JLabel("Icon");
-        JMenu = new JLabel("Meal Menu");
-        OmeletteM1 = new JLabel("Omelette Rice");
-        OmeletteM2 = new JLabel("Oatmeal");
-        OmeletteM3 = new JLabel("Salmon");
-        OmeletteM4 = new JLabel("Ginataan");
-        RamenM2 = new JLabel("Ramen");
-        RamenM3 = new JLabel("Stir Fry");
-        Price1 = new JLabel("₱35");
-        Price2 = new JLabel("₱50");
-        Price3 = new JLabel("₱40");
-        Price4 = new JLabel("₱20");
-        Price5 = new JLabel("₱30");
-        Price6 = new JLabel("₱40");
-        jLabel1 = new JLabel();
-        jLabel2 = new JLabel();
-        jLabel3 = new JLabel();
-        jLabel4 = new JLabel();
-        jLabel5 = new JLabel();
-        jLabel6 = new JLabel();
-
-        // Initialize spinners
-        Spinner1 = new JSpinner();
-        Spinner2 = new JSpinner();
-        Spinner3 = new JSpinner();
-        Spinner4 = new JSpinner();
-        Spinner5 = new JSpinner();
-        Spinner6 = new JSpinner();
-        
-         // Configure Main panel
-        Main.setPreferredSize(new java.awt.Dimension(800, 500));
-        Main.setLayout(null);
-
-        // Configure DashBtnPanel
-        DashBtnPanel.setBackground(new java.awt.Color(51, 153, 0));
-        DashBtnPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        DashBtnPanel.setBounds(0, 0, 120, 500);
-
-        DashBtnPanel.add(OrderBtn);
-        DashBtnPanel.add(ViewBtn);
-        DashBtnPanel.add(ReceiptBtn);
-        DashBtnPanel.add(ExitBtn);
-        DashBtnPanel.add(Icon);
-
-        Main.add(DashBtnPanel);
-
-        // Configure MenuPanel
-        MenuPanel.setBackground(new java.awt.Color(204, 204, 204));
-        MenuPanel.setBounds(120, 0, 680, 50);
-        Main.add(MenuPanel);
-
-        // Add Food Panels (1-6)
-        FoodPanel1 = new JPanel(); FoodPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder()); FoodPanel1.setBounds(180, 80, 250, 104); Main.add(FoodPanel1);
-        FoodPanel2 = new JPanel(); FoodPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder()); FoodPanel2.setBounds(180, 220, 250, 105); Main.add(FoodPanel2);
-        FoodPanel3 = new JPanel(); FoodPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder()); FoodPanel3.setBounds(180, 350, 250, 104); Main.add(FoodPanel3);
-        FoodPanel4 = new JPanel(); FoodPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder()); FoodPanel4.setBounds(470, 80, 250, 105); Main.add(FoodPanel4);
-        FoodPanel5 = new JPanel(); FoodPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder()); FoodPanel5.setBounds(470, 220, 250, 104); Main.add(FoodPanel5);
-        FoodPanel6 = new JPanel(); FoodPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder()); FoodPanel6.setBounds(470, 350, 250, 105); Main.add(FoodPanel6);
-
-        // JFrame setup
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Dashboard");
-        getContentPane().add(Main);
-        pack();
-
-        // Button actions
-        OrderBtn.addActionListener(this::OrderBtnActionPerformed);
-        ViewBtn.addActionListener(this::ViewBtnActionPerformed);
-        ReceiptBtn.addActionListener(this::ReceiptBtnActionPerformed);
-        ExitBtn.addActionListener(this::ExitBtnActionPerformed);
-        
+    grandTotal = 0;
 }
+ 
+   private void addOrder(String itemName, int qty, int price) {
+        if (qty <= 0) return;
+
+    int total = qty * price;
+    String description = foodDescriptions.getOrDefault(itemName, "No description available");
+
+    // Keep description only for orders list (used in View Orders)
+    orders.add(
+        itemName + " x" + qty +
+        " = ₱" + total +
+        "\n   " + description
+    );
+
+    grandTotal += total;
+    
+    }
+
+
+
+    
+    private void setupSpinners() {
+    Spinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+    Spinner2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+    Spinner3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+    Spinner4.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+    Spinner5.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+    Spinner6.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+}
+    
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -181,6 +91,7 @@ public class dashboard extends javax.swing.JFrame {
         ReceiptBtn = new javax.swing.JButton();
         ExitBtn = new javax.swing.JButton();
         Icon = new javax.swing.JLabel();
+        PurchaseBtn = new javax.swing.JButton();
         MenuPanel = new javax.swing.JPanel();
         JMenu = new javax.swing.JLabel();
         FoodPanel6 = new javax.swing.JPanel();
@@ -220,7 +131,7 @@ public class dashboard extends javax.swing.JFrame {
         Main.setPreferredSize(new java.awt.Dimension(800, 500));
         Main.setLayout(null);
 
-        DashBtnPanel.setBackground(new java.awt.Color(51, 153, 0));
+        DashBtnPanel.setBackground(new java.awt.Color(102, 153, 0));
         DashBtnPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         DashBtnPanel.setPreferredSize(new java.awt.Dimension(120, 500));
 
@@ -240,32 +151,37 @@ public class dashboard extends javax.swing.JFrame {
         Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/LogoNoBGmeduim.png"))); // NOI18N
         Icon.setText("Icon");
 
+        PurchaseBtn.setText("Purchase");
+        PurchaseBtn.addActionListener(this::PurchaseBtnActionPerformed);
+
         javax.swing.GroupLayout DashBtnPanelLayout = new javax.swing.GroupLayout(DashBtnPanel);
         DashBtnPanel.setLayout(DashBtnPanelLayout);
         DashBtnPanelLayout.setHorizontalGroup(
             DashBtnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashBtnPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(DashBtnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ReceiptBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                    .addComponent(ExitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ViewBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(DashBtnPanelLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(OrderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashBtnPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Icon, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(DashBtnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DashBtnPanelLayout.createSequentialGroup()
+                        .addComponent(Icon, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(DashBtnPanelLayout.createSequentialGroup()
+                        .addGroup(DashBtnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ExitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                            .addGroup(DashBtnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(ReceiptBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ViewBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(OrderBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(PurchaseBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)))
+                        .addGap(0, 8, Short.MAX_VALUE))))
         );
         DashBtnPanelLayout.setVerticalGroup(
             DashBtnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashBtnPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Icon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addComponent(PurchaseBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(OrderBtn)
                 .addGap(18, 18, 18)
                 .addComponent(ViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -544,67 +460,146 @@ public class dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void OrderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrderBtnActionPerformed
-        
-        orders.clear();
 
-        addOrder("Omelette Rice", (Integer) Spinner1.getValue(), 35);
-        addOrder("Ramen", (Integer) Spinner2.getValue(), 50);
-        addOrder("Stir Fry", (Integer) Spinner3.getValue(), 40);
-        addOrder("Oatmeal", (Integer) Spinner4.getValue(), 20);
-        addOrder("Salmon", (Integer) Spinner5.getValue(), 30);
-        addOrder("Ginataan", (Integer) Spinner6.getValue(), 40);
+        int beforeSize = orders.size();
 
-        Spinner1.setValue(0);
-        Spinner2.setValue(0);
-        Spinner3.setValue(0);
-        Spinner4.setValue(0);
-        Spinner5.setValue(0);
-        Spinner6.setValue(0);
+    addOrder("Omelette Rice", (Integer) Spinner1.getValue(), 35);
+    addOrder("Ramen", (Integer) Spinner2.getValue(), 50);
+    addOrder("Stir Fry", (Integer) Spinner3.getValue(), 40);
+    addOrder("Oatmeal", (Integer) Spinner4.getValue(), 20);
+    addOrder("Salmon", (Integer) Spinner5.getValue(), 30);
+    addOrder("Ginataan", (Integer) Spinner6.getValue(), 40);
 
-        if (orders.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No items selected!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Order placed successfully!");
-        }
+    // Reset spinner VALUES only (not models)
+    Spinner1.setValue(0);
+    Spinner2.setValue(0);
+    Spinner3.setValue(0);
+    Spinner4.setValue(0);
+    Spinner5.setValue(0);
+    Spinner6.setValue(0);
+
+    if (orders.size() == beforeSize) {
+        JOptionPane.showMessageDialog(this, "No items selected!");
+    } else {
+        JOptionPane.showMessageDialog(this, "Items added to order!");
+    }
+    
     }//GEN-LAST:event_OrderBtnActionPerformed
 
     private void ViewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewBtnActionPerformed
         
-        viewOrders();
-        
+        if (orders.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No orders yet!");
+        return;
+    }
+
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < orders.size(); i++) {
+        sb.append(i + 1).append(". ").append(orders.get(i)).append("\n");
+    }
+
+    sb.append("\nEnter the number of the item to remove, or Cancel to exit.");
+
+    String input = JOptionPane.showInputDialog(this, sb.toString(), "Your Orders", JOptionPane.PLAIN_MESSAGE);
+
+    if (input != null) {
+        try {
+            int index = Integer.parseInt(input) - 1;
+            if (index >= 0 && index < orders.size()) {
+                orders.remove(index);
+
+                // recalculate grandTotal
+                grandTotal = 0;
+                for (String order : orders) {
+                    String[] parts = order.split("= ₱");
+                    if (parts.length > 1) {
+                        String pricePart = parts[1].split("\n")[0].trim();
+                        grandTotal += Integer.parseInt(pricePart);
+                    }
+                }
+
+                JOptionPane.showMessageDialog(this, "Item removed!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid number!");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid number!");
+        }
+    }
+    
     }//GEN-LAST:event_ViewBtnActionPerformed
 
     private void ReceiptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReceiptBtnActionPerformed
         
-        if (orders.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "No orders to show on receipt!");
+        if (pastPurchases.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No past purchases!");
         return;
     }
-    int totalAmount = 0;
-    StringBuilder sb = new StringBuilder();
-    for (String o : orders) {
-        sb.append(o).append("\n");
-        // extract price from string for total calculation
-        String[] parts = o.split("₱");
-        if (parts.length > 1) {
-            totalAmount += Integer.parseInt(parts[1]);
-        }
+
+    StringBuilder allReceipts = new StringBuilder();
+    for (int i = 0; i < pastPurchases.size(); i++) {
+        allReceipts.append("Purchase ").append(i + 1).append(":\n");
+        allReceipts.append(pastPurchases.get(i)).append("\n\n");
     }
-    sb.append("\nTotal: ₱").append(totalAmount);
-    JOptionPane.showMessageDialog(this, sb.toString(), "Receipt", JOptionPane.INFORMATION_MESSAGE);
+
+    JOptionPane.showMessageDialog(this, allReceipts.toString(), "Past Purchases", JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_ReceiptBtnActionPerformed
 
     private void ExitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitBtnActionPerformed
         
-        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to exit?", 
-                                                "Exit", JOptionPane.YES_NO_OPTION);
+         int confirm = JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to log out?",
+            "Logout",
+            JOptionPane.YES_NO_OPTION
+    );
+
     if (confirm == JOptionPane.YES_OPTION) {
-        clearOrders(); // Optional: clear orders on exit
-        System.exit(0);
+        this.dispose();     // close Dashboard only
+
+        Login login = new Login();
+        login.setLocationRelativeTo(null); // center Login
+        login.setVisible(true);
     }
         
     }//GEN-LAST:event_ExitBtnActionPerformed
+
+    private void PurchaseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PurchaseBtnActionPerformed
+        
+        if (orders.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No items in your order to purchase!");
+        return;
+    }
+
+    int confirm = JOptionPane.showConfirmDialog(
+        this,
+        "Your total is ₱" + grandTotal + ". Do you want to complete the purchase?",
+        "Confirm Purchase",
+        JOptionPane.YES_NO_OPTION
+    );
+
+    if (confirm == JOptionPane.YES_OPTION) {
+        StringBuilder receipt = new StringBuilder();
+        receipt.append("Purchase Receipt:\n\n");
+
+        for (String o : orders) {
+            // Only show first line (without description)
+            String line = o.split("\n")[0]; 
+            receipt.append(line).append("\n");
+        }
+
+        receipt.append("\n------------------");
+        receipt.append("\nTOTAL: ₱").append(grandTotal);
+
+        pastPurchases.add(receipt.toString());
+
+        JOptionPane.showMessageDialog(this, receipt.toString(), "Purchase Successful", JOptionPane.INFORMATION_MESSAGE);
+
+        clearOrdersSilent();
+    }
+        
+    }//GEN-LAST:event_PurchaseBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -628,7 +623,7 @@ public class dashboard extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new dashboard("user@example.com").setVisible(true));
+       java.awt.EventQueue.invokeLater(() -> new Dashboard("user@example.com").setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -655,6 +650,7 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel Price4;
     private javax.swing.JLabel Price5;
     private javax.swing.JLabel Price6;
+    private javax.swing.JButton PurchaseBtn;
     private javax.swing.JLabel RamenM2;
     private javax.swing.JLabel RamenM3;
     private javax.swing.JButton ReceiptBtn;
