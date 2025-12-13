@@ -56,12 +56,12 @@ public class Login extends javax.swing.JFrame {
             .addGroup(RightLayout.createSequentialGroup()
                 .addGroup(RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(RightLayout.createSequentialGroup()
-                        .addGap(118, 118, 118)
+                        .addGap(120, 120, 120)
                         .addComponent(jLabel6))
                     .addGroup(RightLayout.createSequentialGroup()
-                        .addGap(140, 140, 140)
+                        .addGap(147, 147, 147)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,7 +70,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addContainerGap(217, Short.MAX_VALUE))
+                .addContainerGap(215, Short.MAX_VALUE))
         );
 
         jPanel1.add(Right);
@@ -181,7 +181,6 @@ public class Login extends javax.swing.JFrame {
 
     if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
         JOptionPane.showMessageDialog(this, "Please enter a valid email.");
-        return;
         }
     }//GEN-LAST:event_EmailFieldActionPerformed
 
@@ -209,10 +208,10 @@ public class Login extends javax.swing.JFrame {
 
     // Here you can validate the email and password against stored accounts
     // For now, we just open the dashboard
-    dashboard dashboardFrame = new dashboard();
-    dashboardFrame.pack();
-    dashboardFrame.setLocationRelativeTo(null);
-    dashboardFrame.setVisible(true);
+    Dashboard DashboardFrame = new Dashboard();
+    DashboardFrame.pack();
+    DashboardFrame.setLocationRelativeTo(null);
+    DashboardFrame.setVisible(true);
     this.dispose();
         
     }//GEN-LAST:event_PasswordFieldActionPerformed
@@ -231,10 +230,10 @@ public class Login extends javax.swing.JFrame {
     }
         
     if (found) {
-        dashboard dashboardFrame = new dashboard(email); // pass the email
-        dashboardFrame.pack();
-        dashboardFrame.setLocationRelativeTo(null);
-        dashboardFrame.setVisible(true);
+        Dashboard DashboardFrame = new Dashboard(email); // pass the email
+        DashboardFrame.pack();
+        DashboardFrame.setLocationRelativeTo(null);
+        DashboardFrame.setVisible(true);
         this.dispose();
     } else {
         JOptionPane.showMessageDialog(this, "Invalid email or password!");
